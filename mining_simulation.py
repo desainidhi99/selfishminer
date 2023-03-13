@@ -55,24 +55,27 @@ def Simulate(alpha,gamma,N, seed):
             #Write a piece of code to change the required variables in each one.
             
             if r<=alpha:
+                state = 0
                 SelfishChainsLength = SelfishChainsLength + 1
                 ChainLength +=1
                 SelfishRevenue = SelfishRevenue + SelfishChainsLength
                 #need to update the selfish chainlength and state back to 0
                 SelfishChainsLength = 0
-                state = 0
+                
 
             elif r<=alpha+(1-alpha)*gamma:
+                state = 0
                 ChainLength +=1
                 SelfishRevenue = SelfishRevenue + SelfishChainsLength
-                #need to update the selfish chainlength and state back to 0
+                #need to update the selfish chainlength  to 0
                 SelfishChainsLength = 0
-                state = 0
+                
 
             else:
+                state = 0
                 ChainLength +=1
                 SelfishChainsLength = 0
-                state = 0
+                
 
 
         elif state==2:
@@ -84,18 +87,26 @@ def Simulate(alpha,gamma,N, seed):
 
             else:
                 #The honest miners found a block.
-                state = 0
-                ChainLength += SelfishChainsLength
+                state = 0               
                 SelfishRevenue = SelfishRevenue + SelfishChainsLength
+                ChainLength += SelfishChainsLength
                 SelfishChainsLength = 0
                 
 
         elif state>2:
             if r<=alpha:
                 #The selfish miners found a new block
+                state +=1
+                SelfishChainsLength = SelfishChainsLength + 1
+                
 
             else:
                 #The honest miners found a block
+                state -= 1
+                ChainLength +=1
+                SelfishRevenue = SelfishRevenue + 1
+                SelfishChainsLength -=1
+                
 
     return float(SelfishRevenue)/ChainLength
 
