@@ -53,11 +53,26 @@ def Simulate(alpha,gamma,N, seed):
             #It's the state 0' in the slides (the paper of Eyal and Gun Sirer)
             #There are three situations! 
             #Write a piece of code to change the required variables in each one.
+            
             if r<=alpha:
+                SelfishChainsLength = SelfishChainsLength + 1
+                ChainLength +=1
+                SelfishRevenue = SelfishRevenue + SelfishChainsLength
+                #need to update the selfish chainlength and state back to 0
+                SelfishChainsLength = 0
+                state = 0
 
             elif r<=alpha+(1-alpha)*gamma:
+                ChainLength +=1
+                SelfishRevenue = SelfishRevenue + SelfishChainsLength
+                #need to update the selfish chainlength and state back to 0
+                SelfishChainsLength = 0
+                state = 0
 
             else:
+                ChainLength +=1
+                SelfishChainsLength = 0
+                state = 0
 
 
         elif state==2:
