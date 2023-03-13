@@ -14,7 +14,10 @@ def Simulate(alpha,gamma,N, seed):
     ChainLength=0
     # the revenue of the selfish mining pool
     SelfishRevenue=0
-
+    
+    #addvariable for chain length and intialize it to 0
+    SelfishChainsLength = 0
+    
     #A round begin when the state=0
     for i in range(N):
         r=random.random()
@@ -24,6 +27,7 @@ def Simulate(alpha,gamma,N, seed):
                 #The selfish pool mines a block.
                 #They don't publish it. 
                 state=1
+                SelfishChainsLength = SelfishChainsLength + 1
             else:
                 #The honest miners found a block.
                 #The round is finished : the honest miners found 1 block
@@ -37,8 +41,13 @@ def Simulate(alpha,gamma,N, seed):
                 #The selfish miners found a new block.
                 #Write a piece of code to change the required variables.
                 #You might need to define new variable to keep track of the number of hidden blocks.
+                state +=1
+                SelfishChainsLength = SelfishChainsLength + 1
             else:
                 #Write a piece of code to change the required variables.
+                #update state value since r is greater than alpha
+                state = -1
+                SelfishChainsLength = SelfishChainsLength + 1
 
         elif state==-1:
             #It's the state 0' in the slides (the paper of Eyal and Gun Sirer)
